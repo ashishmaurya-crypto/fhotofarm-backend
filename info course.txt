@@ -1,0 +1,25 @@
+diffrence bwtween browser and nodejs
+browser has dom, window object, interactive apps, no filesytem,
+fragmentation
+es6 module
+
+nodejs has no dom, no window object, server side apps, filesystem,
+versions, commonjs or express js
+
+nodejs has REPL === read evalv print loop
+
+//
+
+global --- no window
+__dirname - path to current directory
+
+__filename - fle name
+
+require -- function to use modules (commonjs)
+
+module -- info about current module ( file)
+process -- info about env where the program is being
+
+in commonjs, every file is module ( by deafault)
+
+modules - encapsulated code (only share minimun)
