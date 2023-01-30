@@ -1,15 +1,20 @@
-var mysql = require('mysql');
-var db = mysql.createConnection({
+const mysql = require('mysql')
+require('dotenv').config();
+
+var conn = mysql.createConnection({
     host: 'ap-south.connect.psdb.cloud',
     port: 3306,
     database: 'fhotofarm',
     user: 'hl3m4f7e7gxe2y7zid4w',
-    password: 'pscale_pw_aLpcbmUIkAPPRGFUEojbqZPYuOyrLAsE2iPp2CiLbzR'
-});
+    password: 'pscale_pw_aLpcbmUIkAPPRGFUEojbqZPYuOyrLAsE2iPp2CiLbzR',
+    ssl: {"rejectUnauthorized":true}
+})
 
-db.connect(function(err){
-    if(err) throw err;
-    console.log("Database Connected.");
-});
+conn.connect((err) => {
+    if (err) throw err;
+    console.log("Database Connected...")
+})
 
-module.exports = db;
+
+
+module.exports = conn;
