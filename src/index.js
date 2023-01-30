@@ -8,7 +8,7 @@ const path = require('path')
 require('dotenv').config();
 const app = express();
 
-// routes import
+// routes import 
 const accountRoutes = require("./routes/accounts/routes.js");
 
 

@@ -19,15 +19,21 @@ const login = async (req, res, next) => {
     var password = req.body.password;
 
     var sql = `SELECT * FROM user WHERE email = "${email}"`;
+    
     console.log('begin', req.body.password);
      conn.query(sql, (err, result, fields) => {
         if (err) throw err;
         console.log('start', result);
         if (result.length && password == result[0].password) {
             var token = userToken(result[0].id);
-            res.json({
-                data: token,
-            });
+            var userID = result[0].id;
+            conn.query(`UPDATE user SET token = '${token}' WHERE id = ${userID};`, (err, result, fields) => {
+                if (err) throw err;
+                res.json({
+                    data: token,
+                });
+            })
+
         } else {
             res.json({
                 message: "api failed"
