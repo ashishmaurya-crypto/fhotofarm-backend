@@ -9,7 +9,7 @@ require('dotenv').config();
 const app = express();
 
 // routes import 
-const accountRoutes = require("./routes/accounts/routes.js");
+const accountRoutes = require("./src/routes/accounts/routes.js");
 
 
 app.use(cors());
