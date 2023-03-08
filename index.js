@@ -11,7 +11,7 @@ const app = express();
 // routes import 
 const accountRoutes = require("./src/routes/accounts/routes.js");
 
-
+// 
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
@@ -28,11 +28,15 @@ app.set("view engine", "ejs");
 var upload = multer();
 app.use(upload.any());
 
+
+
 // urls for routes
 app.get("/", (req, res) => {
     res.send("Welcome to the Home Page");
 });
 app.use("/", accountRoutes);
+
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
