@@ -20,6 +20,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// 
+app.set('view engine', 'ejs');
+
 // to parse form data
 var upload = multer();
 app.use(upload.any());
