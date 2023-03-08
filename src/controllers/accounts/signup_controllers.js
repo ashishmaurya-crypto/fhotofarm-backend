@@ -8,7 +8,7 @@ var bcrypt = require("bcrypt");
 
 
 const signup = async (req, res, next) => {
-    
+
     var email = req.body.email;
     var phone_number = Number(req.body.phone_number);
     var password = req.body.password;
@@ -39,12 +39,13 @@ const signup = async (req, res, next) => {
     
 
     console.log('begin', req.body);
+    console.log('header', req.headers);
 
     const salt = bcrypt.genSaltSync();
     const hashUserID = bcrypt.hashSync(email, salt);
 
 
-    const sql = "INSERT INTO users (user_id, email, phone_number, passward, confirm_password, first_name, last_name, birth_date, gender) VALUES (?,?,?,?,?,?,?,?,?)";
+    const sql = "INSERT INTO users (user_id, email, phone_number, password, confirm_password, first_name, last_name, birth_date, gender) VALUES (?,?,?,?,?,?,?,?,?)";
     const values = [hashUserID, email, phone_number, password, confirm_password, first_name, last_name, birth_date, gender];
 
     conn.query(sql, values, function (error, results, fields) {

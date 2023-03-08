@@ -10,6 +10,7 @@ const app = express();
 
 // routes import 
 const accountRoutes = require("./src/routes/accounts/routes.js");
+const userPost = require("./src/routes/post/routes.js")
 
 // 
 app.use(cors());
@@ -35,6 +36,7 @@ app.get("/", (req, res) => {
     res.send("Welcome to the Home Page");
 });
 app.use("/", accountRoutes);
+app.use("/post", userPost);
 
 
 

@@ -8,8 +8,8 @@ var conn = require("../../db.js");
 const userToken = (id) => {
     var token = Jwt.sign(
         { id: id },
-        'gfg_jwt_secret_key',
-        { expiresIn: "10h" }
+        'secret',
+        { expiresIn: '10h' }
     );
     return token;
 };
@@ -18,25 +18,29 @@ const login = async (req, res, next) => {
     var email = req.body.email;
     var password = req.body.password;
 
-    var sql = `SELECT * FROM user WHERE email = "${email}"`;
+    if(!email || !password){
+        return res.sendStatus(403);
+    }
+
+    var sql = 'SELECT * FROM users WHERE email = ?';
+    const values = [email];
     
     console.log('begin', req.body.password);
-     conn.query(sql, (err, result, fields) => {
-        if (err) throw err;
-        console.log('start', result);
-        if (result.length && password == result[0].password) {
-            var token = userToken(result[0].id);
-            var userID = result[0].id;
-            conn.query(`UPDATE user SET token = '${token}' WHERE id = ${userID};`, (err, result, fields) => {
-                if (err) throw err;
-                res.json({
-                    data: token,
-                });
+    conn.query(sql, values, (err, result, fields) => {
+        if (err){
+            console.log('login error',err);
+            res.status(401).json({
+                error: "login failed"
             })
-
+        }
+        if(result.length === 0){
+            res.status(401).json({ error: "Invalid email or password"})
+        }else if (result.length && password == result[0].password) {
+            var token = userToken(result[0].user_id);
+            res.status(200).json({ token: token })
         } else {
-            res.json({
-                message: "api failed"
+            res.status(401).json({
+                error: "login failed"
             })
         }
     })
